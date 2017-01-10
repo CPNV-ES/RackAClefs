@@ -1,0 +1,47 @@
+<a class="btn btn-primary right" ng-show="usbs.length > 0" ng-click="newModal()">Résérver des clés</a>
+<table class="table">
+    <thead>
+        <th>Identifiant de la clé</th>
+        <th>Status de la clé</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="usb in usbs">
+            <td>{{ usb.name }}</td>
+            <td>
+                <span class="label label-danger" ng-show="!usb.status">Absente</span>
+                <span class="label label-success" ng-show="usb.status && !usb.reserverd">Disponible</span>
+            </td>
+            <td><button class="btn btn-warning btn-xs" ng-click="newModal()" ng-show="!usb.reserverd">Résérver la clé</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<div id="modal" ng-show="modal != null">
+    <div class="modal-overlay"></div>
+    <div class="modal">
+        <div class="modal-header">
+            <h1>Ajouter une clé</h1>
+        </div>
+        <div class="modal-content">
+            <form action="" method="POST">
+                <div class="field has-label">
+                    <label for="">Nom de la reservation</label>
+                    <input type="text" class="field-input" ng-model="modal.name" placeholder="">
+                </div>
+                <div class="field has-label">
+                    <label for="">Nombre de clés</label>
+                    <input type="number" class="field-input" ng-model="modal.count" placeholder="">
+                </div>
+
+                <div class="field has-label">
+                    <input class="field-input" type="file" nv-file-select="" uploader="uploader" multiple  />
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary right">Valider</button>
+            <button class="btn btn-danger" ng-click="modal = null">Annuler</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<table class="table">
+    <thead>
+        <th>Identifiant de la clé</th>
+        <th>Nom de la réservation</th>
+        <th>Date de la réservation</th>
+        <th>Status de la réservation</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="reservation in reservations">
+            <td>CPNV-USB01</td>
+            <td>ICT 143</td>
+            <td>29/11/2016</td>
+            <td><span class="label label-danger">En cours d'utilisation</span></td>
+            <td><a href="#" class="btn btn-warning btn-xs">Rendre la clé</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<div id="modal" ng-show="modal != null">
+    <div class="modal-overlay"></div>
+    <div class="modal">
+        <div class="modal-header">
+            <h1>Ajouter une clé</h1>
+        </div>
+        <div class="modal-content">
+            <form action="" method="POST">
+                <div class="field">
+                    <label for="" class="field-label">Nom de la clé</label>
+                    <input type="text" class="field-input">
+                </div>
+                <div class="field">
+                    <label for="" class="field-label">Status</label>
+                    <input type="text" class="field-input">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="" class="btn btn-primary right">Valider</a>
+            <a href="" class="btn btn-danger">Annuler</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,4 @@
+[
+    {"name": "BA_ClearStatus", "numberBS": 1, "packSize": 14},
+    {"name": "BA_Check", "numberBS": 1, "packSize": 14}
+]
