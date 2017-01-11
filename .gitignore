@@ -1,6 +1,9 @@
 # Visual Studio Code Directory
 .vscode
 
+# TypeScript compiled
+scripts/*.js
+
 # Logs
 logs
 *.log

@@ -38,6 +38,23 @@ module.exports = function($scope, socket, $rootScope, toaster, $interval, FileUp
           count: 2
         }
     }
+
+
+    $scope.keyState = function(key) {
+      if (!key.initialized && key.status) {
+        return { tag: 'Inconnue', classInfo: 'info' }
+      }
+
+      if (key.reserverd) {
+        return { tag: 'Reservée', classInfo: 'warning' }
+      }
+
+      if (key.status) {
+        return { tag: 'Disponnible', classInfo: 'success' }
+      } else {
+        return { tag: 'Absente', classInfo: 'danger' }
+      }
+    }
 }
 },{}],3:[function(require,module,exports){
 module.exports = function($scope, socket, $rootScope, toaster){

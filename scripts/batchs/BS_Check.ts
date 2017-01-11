@@ -15,12 +15,7 @@ export default class BS_Check extends BatchSession {
     public doElement(element: any){
         let repo = new UsbRepository()
         repo.findOne({uuid: element.uuid}, (err, usb) => {
-            if (usb.name.indexOf('CPNV-USB') < 0) {
-                usb.status = 2
-            } else {
-                usb.status = 1
-            }             
-            
+            usb.status = true            
             this.log(usb)
             repo.update(usb.id, usb,(err, usb) => {
                 if(err) {

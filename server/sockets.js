@@ -17,7 +17,7 @@ module.exports = function(io, domain) {
          * USB ORM
          */
         socket.on('usb/list', (callback) => {
-            Usb.find({ initialized: true }, callback)
+            Usb.find({ }, callback)
         })
 
 

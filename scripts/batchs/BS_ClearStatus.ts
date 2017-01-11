@@ -15,7 +15,7 @@ export default class BS_ClearStatus extends BatchSession {
     public doElement(element: any){
         let repo = new UsbRepository()
         let usb = <IUsbModel> element
-        usb.status = 0
+        usb.status = false
         repo.update(usb.id, usb, (err, res) => {
             if (err){
                 this.finishOneData(0)

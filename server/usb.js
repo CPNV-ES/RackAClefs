@@ -1,5 +1,6 @@
 var monitor = require('node-usb-detection')
 var spawn = require('child_process').spawn
+
 module.exports = function() {
 	monitor.add((device) => {
 		setTimeout(() => {
