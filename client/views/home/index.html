@@ -18,7 +18,7 @@
 
 <div id="modal" ng-show="modal != null">
     <div class="modal-overlay"></div>
-    <div class="modal">
+    <div class="modal" ng-show="modal.step == 0">
         <div class="modal-header">
             <h1>Ajouter une clé</h1>
         </div>
@@ -32,15 +32,27 @@
                     <label for="">Nombre de clés</label>
                     <input type="number" class="field-input" ng-model="modal.count" placeholder="">
                 </div>
-
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary right" ng-click="newReservation()">Suivant</button>
+            <button class="btn btn-danger" ng-click="modal = null">Annuler</button>
+        </div>
+    </div>
+    <div class="modal" ng-show="modal.step == 1">
+        <div class="modal-header">
+            <h1>Ajouter une clé</h1>
+        </div>
+        <div class="modal-content">
+            <form action="" method="POST">
                 <div class="field has-label">
-                    <input class="field-input" type="file" nv-file-select="" uploader="uploader" multiple  />
+                    <input class="field-input" type="file" accept=".zip" file-model="model.file"  />
                 </div>
             </form>
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary right">Valider</button>
-            <button class="btn btn-danger" ng-click="modal = null">Annuler</button>
+            <button class="btn btn-danger" ng-click="modal.step = 0">Précédent</button>
         </div>
     </div>
 </div>

@@ -86,6 +86,7 @@ app.factory('socket', function(socketFactory, $rootScope, toaster){
 });
 
 app.service('sharedData', require('./service/sharedData.js'));
+app.service('fileUpload', ['$http', require('./service/uploadFile.js')]);
 
 app.run(function($rootScope){
   $rootScope.range = function(n) {

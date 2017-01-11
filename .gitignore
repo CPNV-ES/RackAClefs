@@ -3,6 +3,7 @@
 
 # TypeScript compiled
 scripts/*.js
+scripts/**/*.js
 
 # Logs
 logs

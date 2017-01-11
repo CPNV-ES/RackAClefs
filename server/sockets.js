@@ -59,6 +59,65 @@ module.exports = function(io, domain) {
             Reservation.find({}, callback)
         })
 
+        socket.on('reservation/save', (data, callback) => {
+            if (data.id != null) {
+                Reservation.findById(data.id, function (err, reservation) {
+                    reservation.name = data.name
+                    var usbCount = reservation.usbs.length - data.count
+                    if (usbCount > 0) {
+                        Usb.find({ status: true, reserved: false, initialized: true}).limit(usbCount).exec(function (err, usbs) {
+                            if (err) {
+                                callback(err, null)
+                                return false
+                            }
+                            for ( var uz in usbs) {
+                                var usb = usbs[u]
+
+                                usb.reserved = true
+
+                                usb.save(function (err, usbData) {
+                                    reservation.usbs.push(usbData)
+                                })
+                            }
+
+                            reservation.save(callback)
+                        })
+                    } else if (usbCount < 0) {
+                        var start = reservation.usbs.length - (usbCount * -1)
+                        var usbs = reservation.usbs.slice(start, reservation.usbs.length)
+                        console.log(reservation.usbs, usbs)
+                    }
+                })
+            } else {
+                var reservation = new Reservation()
+                reservation.name = data.name
+                reservation.user = data.user
+                reservation.reserved_at = new Date()
+                reservation.status = true
+
+                Usb.find({ status: true, reserved: false, initialized: true}).limit(data.count).exec(function (err, usbs) {
+                    if (err) {
+                        callback(err, null)
+                        return false
+                    }
+
+                    for (var u in usbs) {
+                        var usb = usbs[u]
+
+                        usb.reserved = true
+
+                        usb.save(function (err, usbData) {
+                            console.log('UsbData', usbData)
+                            reservation.usbs.push(usbData)
+                        })
+                    }
+
+                    reservation.save(callback)
+                })
+            }
+            
+        })
+
         /**
          * USB Event
          */
