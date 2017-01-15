@@ -4,7 +4,7 @@ var spawn = require('child_process').spawn
 module.exports = function() {
 	monitor.add((device) => {
 		setTimeout(() => {
-			var add = spawn('node',[__dirname + '/../scripts/chainBatch/addusbkey.js'])
+			var add = spawn('node',[__dirname + '/../scripts/batch/chainBatch/addusbkey.js'])
 
 			add.stdout.on('data', (data) => { })
 
@@ -16,7 +16,7 @@ module.exports = function() {
 	})
 
 	monitor.remove((device) => {
-		var remove = spawn('node',[__dirname + '/../scripts/chainBatch/checkusbs.js'])
+		var remove = spawn('node',[__dirname + '/../scripts/batch/chainBatch/checkusbs.js'])
 
 		remove.stdout.on('data', (data) => { })
 
