@@ -2,8 +2,8 @@
 .vscode
 
 # TypeScript compiled
-scripts/*.js
-scripts/**/*.js
+scripts/batch/*.js
+scripts/batch/**/*.js
 
 # Logs
 logs
