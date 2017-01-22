@@ -1,6 +1,6 @@
 module.exports = {
   database: {
-    'url' : 'mongodb://localhost:27017/rackaclefs'
+    'url': 'mongodb://localhost:27017/rackaclefs'
   },
   app: {
     port: 5555

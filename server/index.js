@@ -18,26 +18,25 @@ var MongoStore = require('connect-mongo')(session)
 
 var io = require('socket.io')(server)
 
-var uniqid = require('uniqid');
+var uniqid = require('uniqid')
 
-Object.defineProperty(global, "adminUniq", {
-    enumerable: false,
-    configurable: false,
-    writable: false,
-    value: uniqid()
-});
+Object.defineProperty(global, 'adminUniq', {
+  enumerable: false,
+  configurable: false,
+  writable: false,
+  value: uniqid()
+})
 
 var databaseUrl = config.database.url
 
 var mongoOptions = {}
 
 if (config.database.user != null && config.database.password != null) {
-    mongoOptions.user = config.database.user
-    mongoOptions.pass = config.database.password
+  mongoOptions.user = config.database.user
+  mongoOptions.pass = config.database.password
 }
 
 users = {}
-
 
 server.listen(port)
 
@@ -57,21 +56,21 @@ app.use(bodyParser())
 app.set('view engine', 'ejs')
 
 app.use(session({
-    secret: config.secret != null ? config.secret : 'ilovescotchscotfsefeschyscotch',
-    key: 'express.id',
-    store: mongoStore
+  secret: config.secret != null ? config.secret : 'ilovescotchscotfsefeschyscotch',
+  key: 'express.id',
+  store: mongoStore
 }))
 
-//app.use(passport.initialize())
-//app.use(passport.session())
-app.use(flash());
+// app.use(passport.initialize())
+// app.use(passport.session())
+app.use(flash())
 
-app.use('/static',express.static( __dirname + '/../client/static/'))
+app.use('/static', express.static(__dirname + '/../client/static/'))
 app.use('/views', express.static(__dirname + '/../client/views/'))
 
 require('./routes')(app, passport)
 
-/*io.use(passportSocketIo.authorize({
+/* io.use(passportSocketIo.authorize({
     cookieParser: cookieParser,
     secret: config.secret != null ? config.secret : 'ilovescotchscotfsefeschyscotch',
     key: 'express.id',
@@ -84,7 +83,7 @@ require('./routes')(app, passport)
     success: () => {
         accept()
     }
-}))*/
+})) */
 
 var d = domain.create()
 require('./sockets')(io, d)
@@ -93,9 +92,9 @@ require('./usb')()
 console.log('The magic happens on port : ' + port)
 
 var endApp = () => {
-    server.close()
-    console.log('========== Closing App ==========')
-    process.exit()
+  server.close()
+  console.log('========== Closing App ==========')
+  process.exit()
 }
 
 process.once('SIGUSR1', endApp)

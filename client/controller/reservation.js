@@ -1,10 +1,8 @@
-module.exports = function($scope, socket, $rootScope, toaster){
+module.exports = function ($scope, socket, $rootScope, toaster) {
+  $scope.widgets = []
 
-  $scope.widgets = [];
-
-  socket.emit('reservation/list', function(err, reservations){
-    if(err) return;
+  socket.emit('reservation/list', function (err, reservations) {
+    if (err) return
     $scope.reservations = reservations
   })
-
 }

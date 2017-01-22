@@ -1,17 +1,17 @@
-module.exports = function(app){
-  app.directive("topBar", function(){
+module.exports = function (app) {
+  app.directive('topBar', function () {
     return {
-      restrict: "E",
-      templateUrl: "views/topbar/index.html"
-    };
-  });
-  
-  app.directive("appScript", function(){
+      restrict: 'E',
+      templateUrl: 'views/topbar/index.html'
+    }
+  })
+
+  app.directive('appScript', function () {
     return {
-      restrict: "E",
-      templateUrl: "views/scripts.html",
-      link: function(){
-        /*if(!controlSideBarLoaded){
+      restrict: 'E',
+      templateUrl: 'views/scripts.html',
+      link: function () {
+        /* if(!controlSideBarLoaded){
           var intervalID = setInterval(function(){
             if(controlSideBarLoaded){
               clearInterval(intervalID);
@@ -19,12 +19,12 @@ module.exports = function(app){
             }
           }, 250);
 
-        }*/
+        } */
       }
-    };
-  });
+    }
+  })
 
-  app.directive("fileModel", ['$parse', function ($parse) {
+  app.directive('fileModel', ['$parse', function ($parse) {
     return {
       restrict: 'A',
       link: function (scope, element, attrs) {
@@ -37,5 +37,5 @@ module.exports = function(app){
         })
       }
     }
-  }])  
+  }])
 }

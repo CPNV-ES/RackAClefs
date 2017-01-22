@@ -1,12 +1,12 @@
-module.exports = function(){
-  var data = {};
+module.exports = function () {
+  var data = {}
 
   return {
-    get: function(key){
-      return data[key];
+    get: function (key) {
+      return data[key]
     },
-    set: function(key, value){
-      data[key] = value;
+    set: function (key, value) {
+      data[key] = value
     }
   }
 }

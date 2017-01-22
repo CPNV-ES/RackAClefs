@@ -15,10 +15,10 @@ usb.initialized = true
 
 console.log(`Saving usb in database`)
 usb.save((err, u) => {
-    if (err) {
-        console.log(`Error on saving usb : ${err}`)
-        return
-    }
+  if (err) {
+    console.log(`Error on saving usb : ${err}`)
+    return
+  }
 
-    console.log(`Usb successfully created with name : ${u.name} and uuid : ${u.uuid}`)
+  console.log(`Usb successfully created with name : ${u.name} and uuid : ${u.uuid}`)
 })
