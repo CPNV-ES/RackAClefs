@@ -7,64 +7,48 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="/static/favicon.ico">
-
     <title>Rack à clefs | CPNV</title>
-
-    <!-- Custom styles for this template -->
-    <link href="/static/css/app.css" rel="stylesheet">
-
-
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <style>
-        .button svg{
-            height: 13px;
-            width: 13px;
-            fill: #FFF;
-        }
-    </style>
+    <link href="/static/css/semantic.min.css" rel="stylesheet">
 </head>
 
 <body>
+<div class="ui middle aligned center aligned grid">
+    <div class="column">
+        <h2 class="ui teal image header">
+            <img src="assets/images/logo.png" class="image">
+            <div class="content">
+                Log-in to your account
+            </div>
+        </h2>
+        <form class="ui large form" method="post">
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="username" placeholder="E-mail address">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <button type="submit" class="ui fluid large teal submit button">Login</button>
+            </div>
 
-<nav class="navbar">
-    <div class="right">
-        <a href="/login">Connexion</a>
-    </div>
-</nav>
-<section class="content">
-    <% if(message.length > 0){ %>
-        <div class="alert alert-error"><%= message %></div>
-    <% } %>
-    <div class="auth">
-        <form action="" method="POST">
-            <div class="title">Se connecter</div>
-            <div class="field">
-                <label for="" class="field-label">Nom d'utilisateur</label>
-                <input type="text" class="field-input" name="username" value="jonathan.debetaz@cpnv.dev">
-            </div>
-            <div class="field">
-                <label for="" class="field-label">Mot de passe</label>
-                <input type="password" class="field-input" name="password">
-            </div>
-            <button type="submit" class="btn btn-primary">Connexion</button>
+            <div class="ui error message"></div>
+
         </form>
+
+        <div class="ui message">
+            New to us? <a href="#">Sign Up</a>
+        </div>
     </div>
-</section>
-
-
-<div id="outdated">
-    <h6>Votre navigateur est désuet!</h6>
-    <p>Mettez à jour votre navigateur pour afficher correctement ce site Web. <a id="btnUpdateBrowser"
-                                                                                 href="http://outdatedbrowser.com/fr">Mettre
-        à jour maintenant </a></p>
-    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Fermer">&times;</a></p>
 </div>
 
-<script src="/static/js/jquery-2.1.1.min.js"></script>
-<script src="/static/js/outdatedbrowser.js"></script>
-<script src="/static/js/app.js"></script>
+
+    <script src="/static/js/jquery-2.1.1.min.js"></script>
+    <script src="/static/js/semantic.js"></script>
 </body>
 </html>

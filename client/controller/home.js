@@ -40,17 +40,17 @@ module.exports = function ($scope, socket, $rootScope, toaster, $interval, fileU
 
   $scope.keyState = function (key) {
     if (!key.initialized && key.status) {
-      return { tag: 'Inconnue', classInfo: 'info' }
+      return { tag: 'Inconnue', classInfo: 'blue' }
     }
 
     if (key.reserverd) {
-      return { tag: 'Reservée', classInfo: 'warning' }
+      return { tag: 'Reservée', classInfo: 'orange' }
     }
 
     if (key.status) {
-      return { tag: 'Disponnible', classInfo: 'success' }
+      return { tag: 'Disponnible', classInfo: 'green' }
     } else {
-      return { tag: 'Absente', classInfo: 'danger' }
+      return { tag: 'Absente', classInfo: 'red' }
     }
   }
 

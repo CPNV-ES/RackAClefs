@@ -1,5 +1,6 @@
-<a class="btn btn-primary right" ng-show="usbs.length > 0" ng-click="newModal()">Résérver des clés</a>
-<table class="table">
+<style> .ui.modal { display: block; }</style>
+<a class="ui button primary right" ng-show="usbs.length > 0" ng-click="newModal()"><i class="icon plus"></i>Résérver des clés</a>
+<table class="ui striped table">
     <thead>
         <th>Identifiant de la clé</th>
         <th>Status de la clé</th>
@@ -9,50 +10,46 @@
         <tr ng-repeat="usb in usbs">
             <td>{{ usb.name }}</td>
             <td>
-                <span class="label label-{{ keyState(usb).classInfo }}">{{ keyState(usb).tag }}</span>
+                <span class="ui label {{ keyState(usb).classInfo }}">{{ keyState(usb).tag }}</span>
             </td>
             <td><button class="btn btn-warning btn-xs" ng-click="newModal()" ng-show="(!usb.reserverd && usb.initialized)">Résérver la clé</button></td>
         </tr>
     </tbody>
 </table>
 
-<div id="modal" ng-show="modal != null">
-    <div class="modal-overlay"></div>
-    <div class="modal" ng-show="modal.step == 0">
-        <div class="modal-header">
-            <h1>Ajouter une clé</h1>
-        </div>
-        <div class="modal-content">
-            <form action="" method="POST">
-                <div class="field has-label">
-                    <label for="">Nom de la reservation</label>
-                    <input type="text" class="field-input" ng-model="modal.name" placeholder="">
+<div class="ui modal" ng-show="modal != null">
+    <i class="close icon"></i>
+    <div class="header">
+        Ajouter une clé
+    </div>
+    <div class="content" ng-show="modal.step == 0">
+        <div class="ui form">
+            <div class="field">
+                <label for="">Nom de la reservation</label>
+                <input type="text" ng-model="modal.name" placeholder="">
+            </div>
+            <div class="field">
+                <label for="">Nombre de clés</label>
+                <div class="field">
+                    <input  type="number" ng-model="modal.count"/>
                 </div>
-                <div class="field has-label">
-                    <label for="">Nombre de clés</label>
-                    <input type="number" class="field-input" ng-model="modal.count" placeholder="">
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary right" ng-click="newReservation()">Suivant</button>
-            <button class="btn btn-danger" ng-click="modal = null">Annuler</button>
+            </div>
         </div>
     </div>
-    <div class="modal" ng-show="modal.step == 1">
-        <div class="modal-header">
-            <h1>Ajouter une clé</h1>
+    <div class="content" ng-show="modal.step == 1">
+        <div class="image">
+            An image can appear on left or an icon
         </div>
-        <div class="modal-content">
-            <form action="" method="POST">
-                <div class="field has-label">
-                    <input class="field-input" type="file" accept=".zip" file-model="model.file"  />
-                </div>
-            </form>
+        <div class="description">
+            A description can appear on the right
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary right">Valider</button>
-            <button class="btn btn-danger" ng-click="modal.step = 0">Précédent</button>
-        </div>
+    </div>
+    <div class="actions" ng-show="modal.step == 0">
+        <div class="ui button" ng-click="modal = null">Cancel</div>
+        <div class="ui button primary" ng-click="newReservation()">OK</div>
+    </div>
+    <div class="actions" ng-show="modal.step == 1">
+        <div class="ui button" ng-click="modal.step = 0">Cancel</div>
+        <div class="ui button primary" ng-click="">OK</div>
     </div>
 </div>

@@ -1,11 +1,13 @@
-<nav class="navbar">
-    <a href="#" id="menu-toggle"><i class="fa fa-bars"></i></a>
-    <div class="left menu" id="menu">
-        <a href="#!/home" ng-class="{active:currentPath=='/home'}">Accueil</a>
-        <a href="#!/reservations" ng-class="{active:currentPath=='/reservations'}">Mes réservations</a>
-        <a href="#!/admin" ng-class="{active:currentPath=='/admin'}" ng-show="admin != null">Administration</a>
+<div class="ui inverted menu fixed main">
+    <a href="#!/home" class="item" ng-class="{active:currentPath=='/home'}">Accueil</a>
+    <a href="#!/reservations" class="item" ng-class="{active:currentPath=='/reservations'}">Mes réservations</a>
+    <a href="#!/admin" class="item" ng-class="{active:currentPath=='/admin'}" ng-show="admin != null">Administration</a>
+    <div class="right menu">
+        <div class="ui dropdown item">
+            {{ passport.user.username }} <i class="dropdown icon"></i>
+            <div class="menu">
+                <a href="" class="item">Déconnexion</a>
+            </div>
+        </div>
     </div>
-    <div class="right">
-        <a href="/login">Connexion</a>
-    </div>
-</nav>
+</div>

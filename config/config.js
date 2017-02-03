@@ -7,7 +7,7 @@ module.exports = {
   },
   ldap: {
     server: {
-      url: 'ldap://172.17.211.131:389',
+      url: 'ldap://172.17.212.121:389',
       bindDn: 'cn=administrateur',
       bindCredentials: 'Pa$$w0rd',
       searchBase: 'dc=cpnv,dc=dev',

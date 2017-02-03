@@ -37,7 +37,7 @@ module.exports = function (app, passport) {
           scope: 'sub',
           filter: config.ldap.server.searchFilter.replace('{{username}}', username)
         }, function (err, ldapResult) {
-          if (err !== undefined) {
+          if (err !== null) {
             res.send('LDAP search error: ' + err)
             return
           }

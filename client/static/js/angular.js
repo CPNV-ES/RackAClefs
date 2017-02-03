@@ -1,115 +1,112 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-module.exports = function($scope, socket, $rootScope, toaster, $interval){
-    $scope.usbs = []
+module.exports = function ($scope, socket, $rootScope, toaster, $interval) {
+  $scope.usbs = []
 
-    socket.emit(adminUniq + '/admin/usb/list', function(err, list){
-        if(err) console.log(err);
-        $scope.usbs = list
-    })
-
-    $interval(function() {
-        socket.emit(adminUniq + '/admin/usb/list', function(err, list){
-            if(err) console.log(err);
-            $scope.usbs = list
-        })
-    }, 5000)
-
-}
-},{}],2:[function(require,module,exports){
-module.exports = function($scope, socket, $rootScope, toaster, $interval, fileUpload) {
-
-    $scope.usbs = [];
-    $scope.modal = null
-
-    socket.emit('usb/list', function(err, list){
-      if(err) console.log(err);
-      $scope.usbs = list
-    })
-
-    $interval(function() {
-      socket.emit('usb/list', function(err, list){
-        if(err) console.log(err);
-        $scope.usbs = list
-      })
-    }, 5000)
-
-    $scope.newModal = function () {
-        $scope.modal = {
-          count: 2,
-          step: 0
-        }
-    }
-
-    $scope.newReservation = function () {
-      var id = $scope.modal.id
-      var name = $scope.modal.name
-      var count = $scope.modal.count
-      var user_id = $rootScope.passport.user.id
-
-      socket.emit('reservation/save', { id: id, name: name, count: count, user: user_id }, function (err, data) {
-        if (err) {
-          toaster.pop('error', 'Error', err)
-        }else {
-          $scope.modal.id = data.id
-          $scope.modal.step = 1
-          console.log(" Reserved " + data)
-        }
-          
-      })
-
-    }
-
-    $scope.keyState = function(key) {
-      if (!key.initialized && key.status) {
-        return { tag: 'Inconnue', classInfo: 'info' }
-      }
-
-      if (key.reserverd) {
-        return { tag: 'Reservée', classInfo: 'warning' }
-      }
-
-      if (key.status) {
-        return { tag: 'Disponnible', classInfo: 'success' }
-      } else {
-        return { tag: 'Absente', classInfo: 'danger' }
-      }
-    }
-
-    $scope.uploadFile = function () {
-      var file = $scope.modal.file
-      var id = $scope.modal.id
-
-      var uploadUrl = ""
-
-      fileUpload.uploadFIleToUrl(file, id, uploadUrl)
-    }
-}
-},{}],3:[function(require,module,exports){
-module.exports = function($scope, socket, $rootScope, toaster){
-
-  $scope.widgets = [];
-
-  socket.emit('reservation/list', function(err, reservations){
-    if(err) return;
-    $scope.reservations = reservations
+  socket.emit(adminUniq + '/admin/usb/list', function (err, list) {
+    if (err) console.log(err)
+    $scope.usbs = list
   })
 
+  $interval(function () {
+    socket.emit(adminUniq + '/admin/usb/list', function (err, list) {
+      if (err) console.log(err)
+      $scope.usbs = list
+    })
+  }, 5000)
 }
+
+},{}],2:[function(require,module,exports){
+module.exports = function ($scope, socket, $rootScope, toaster, $interval, fileUpload) {
+  $scope.usbs = []
+  $scope.modal = null
+
+  socket.emit('usb/list', function (err, list) {
+    if (err) console.log(err)
+    $scope.usbs = list
+  })
+
+  $interval(function () {
+    socket.emit('usb/list', function (err, list) {
+      if (err) console.log(err)
+      $scope.usbs = list
+    })
+  }, 5000)
+
+  $scope.newModal = function () {
+    $scope.modal = {
+      count: 2,
+      step: 0
+    }
+  }
+
+  $scope.newReservation = function () {
+    var id = $scope.modal.id
+    var name = $scope.modal.name
+    var count = $scope.modal.count
+    var userId = $rootScope.passport.user.id
+
+    socket.emit('reservation/save', { id: id, name: name, count: count, user: userId }, function (err, data) {
+      if (err) {
+        toaster.pop('error', 'Error', err)
+      } else {
+        $scope.modal.id = data.id
+        $scope.modal.step = 1
+        console.log(' Reserved ' + data)
+      }
+    })
+  }
+
+  $scope.keyState = function (key) {
+    if (!key.initialized && key.status) {
+      return { tag: 'Inconnue', classInfo: 'blue' }
+    }
+
+    if (key.reserverd) {
+      return { tag: 'Reservée', classInfo: 'orange' }
+    }
+
+    if (key.status) {
+      return { tag: 'Disponnible', classInfo: 'green' }
+    } else {
+      return { tag: 'Absente', classInfo: 'red' }
+    }
+  }
+
+  $scope.uploadFile = function () {
+    var file = $scope.modal.file
+    var id = $scope.modal.id
+
+    var uploadUrl = ''
+
+    fileUpload.uploadFIleToUrl(file, id, uploadUrl)
+  }
+}
+
+},{}],3:[function(require,module,exports){
+module.exports = function ($scope, socket, $rootScope, toaster) {
+  $scope.widgets = []
+
+  socket.emit('reservation/list', function (err, reservations) {
+    if (err) return
+    $scope.reservations = reservations
+  })
+}
+
 },{}],4:[function(require,module,exports){
-module.exports = function(app){
-  app.directive("topBar", function(){
+module.exports = function (app) {
+  app.directive('topBar', function () {
     return {
-      restrict: "E",
-      templateUrl: "views/topbar/index.html"
-    };
-  });
-  
-  app.directive("appScript", function(){
+      restrict: 'E',
+      templateUrl: 'views/topbar/index.html'
+    }
+  })
+
+  app.directive('appScript', function () {
     return {
-      restrict: "E",
-      templateUrl: "views/scripts.html",
-      link: function(){
-        /*if(!controlSideBarLoaded){
+      restrict: 'E',
+      templateUrl: 'views/scripts.html',
+      link: function () {
+        /* if(!controlSideBarLoaded){
           var intervalID = setInterval(function(){
             if(controlSideBarLoaded){
               clearInterval(intervalID);
@@ -117,12 +114,12 @@ module.exports = function(app){
             }
           }, 250);
 
-        }*/
+        } */
       }
-    };
-  });
+    }
+  })
 
-  app.directive("fileModel", ['$parse', function ($parse) {
+  app.directive('fileModel', ['$parse', function ($parse) {
     return {
       restrict: 'A',
       link: function (scope, element, attrs) {
@@ -135,152 +132,143 @@ module.exports = function(app){
         })
       }
     }
-  }])  
+  }])
 }
 
 },{}],5:[function(require,module,exports){
-var io = require('socket.io-client');
+var io = require('socket.io-client')
 
-var path = require('path');
-var  _ = require('underscore');
-var angular = require('angular');
-require('angular-route');
-require('angular-sanitize');
-require('angular-socket-io');
-require('angular-animate');
-require('angularjs-toaster');
-require('angular-gettext');
-require('angular-ui-sortable');
-require('angular-file-upload');
+var path = require('path')
+var _ = require('underscore')
+var angular = require('angular')
+require('angular-route')
+require('angular-sanitize')
+require('angular-socket-io')
+require('angular-animate')
+require('angularjs-toaster')
+require('angular-gettext')
+require('angular-ui-sortable')
+require('angular-file-upload')
 
-var app = angular.module("racapp", ['ngRoute', 'btford.socket-io', 'ngSanitize', 'toaster', 'ngAnimate', 'gettext', 'ui.sortable', 'angularFileUpload']);
+var app = angular.module('racapp', ['ngRoute', 'btford.socket-io', 'ngSanitize', 'toaster', 'ngAnimate', 'gettext', 'ui.sortable', 'angularFileUpload'])
 
-var countNeedLoad = 0;
-var loaded = 0;
+var countNeedLoad = 0
+var loaded = 0
 
-var menuItems = [];
-var settingsItems = [];
+var menuItems = []
+var settingsItems = []
 
-var widgets = [];
+var widgets = []
 
-app.config(function($routeProvider){
-  app.routeProvider = $routeProvider;
+app.config(function ($routeProvider) {
+  app.routeProvider = $routeProvider
   $routeProvider.when('/home', {
-    templateUrl: "views/home/index.html",
-    controller:"HomeController"
-  });
+    templateUrl: 'views/home/index.html',
+    controller: 'HomeController'
+  })
 
   $routeProvider.when('/reservations', {
-      templateUrl: "views/reservations/index.html",
-      controller: "ReservationController"
+    templateUrl: 'views/reservations/index.html',
+    controller: 'ReservationController'
   })
 
   $routeProvider.when('/admin', {
-      templateUrl: "views/admin/index.html",
-      controller: "AdminController"
+    templateUrl: 'views/admin/index.html',
+    controller: 'AdminController'
   })
 
   $routeProvider.when('/admin/reservations', {
-      templateUrl: "views/admin/reservations.html",
-      controller: "AdminController"
+    templateUrl: 'views/admin/reservations.html',
+    controller: 'AdminController'
   })
 
   $routeProvider.otherwise({
     redirectTo: '/home'
-  });
-
-});
-
-app.directive('ngEnter', function () {
-    return function (scope, element, attrs) {
-        element.bind("keydown keypress", function (event) {
-            if(event.which === 13) {
-                scope.$apply(function (){
-                    scope.$eval(attrs.ngEnter);
-                });
- 
-                event.preventDefault();
-            }
-        });
-    };
-});
-
-app.factory('socket', function(socketFactory, $rootScope, toaster){
-
-  var myIoSocket = io.connect();
-  myIoSocket.on('globalSettings', function(globalSettings){
-    $rootScope.globalSettings = globalSettings;
-  });
-  myIoSocket.on('server-error', function(msg, error){
-    console.error(error, typeof(error), msg);
-    toaster.pop('error', 'Error', msg);
-  });
-  myIoSocket.on('disconnect', function(){
-    toaster.pop("warning", "Connexion lost", "The server is no longer reachable");
-    $rootScope.$apply();
-  });
-  myIoSocket.on('reconnect', function(){
-    toaster.pop("info", "Reconnected", "The server is reachable again");
-    $rootScope.$apply();
-  });
-  return socketFactory({ioSocket:myIoSocket});
-});
-
-app.service('sharedData', require('./service/sharedData.js'));
-app.service('fileUpload', ['$http', require('./service/uploadFile.js')]);
-
-app.run(function($rootScope){
-  $rootScope.range = function(n) {
-    var l = [];
-    for(var i = 0; i < n; i++){
-      l.push(i);
-    }
-    return l;
-  };
-  $rootScope.passport = passport;
-  $rootScope.admin = adminUniq;
-});
-
-
-app.run(function($location, $rootScope){
-    $rootScope.currentPath = $location.path();
-    $rootScope.$on('$routeChangeSuccess', function(e, current, pre) {
-        $rootScope.currentPath = $location.path();
-    });
+  })
 })
 
+app.directive('ngEnter', function () {
+  return function (scope, element, attrs) {
+    element.bind('keydown keypress', function (event) {
+      if (event.which === 13) {
+        scope.$apply(function () {
+          scope.$eval(attrs.ngEnter)
+        })
 
-app.controller('MainController', function($scope){ $scope.init = true; });
-app.controller('HomeController', require('./controller/home'));
-app.controller('ReservationController', require('./controller/reservation'));
-app.controller('AdminController', require('./controller/admin'));
+        event.preventDefault()
+      }
+    })
+  }
+})
 
+app.factory('socket', function (socketFactory, $rootScope, toaster) {
+  var myIoSocket = io.connect()
+  myIoSocket.on('globalSettings', function (globalSettings) {
+    $rootScope.globalSettings = globalSettings
+  })
+  myIoSocket.on('server-error', function (msg, error) {
+    console.error(error, typeof (error), msg)
+    toaster.pop('error', 'Error', msg)
+  })
+  myIoSocket.on('disconnect', function () {
+    toaster.pop('warning', 'Connexion lost', 'The server is no longer reachable')
+    $rootScope.$apply()
+  })
+  myIoSocket.on('reconnect', function () {
+    toaster.pop('info', 'Reconnected', 'The server is reachable again')
+    $rootScope.$apply()
+  })
+  return socketFactory({ioSocket: myIoSocket})
+})
 
+app.service('sharedData', require('./service/sharedData.js'))
+app.service('fileUpload', ['$http', require('./service/uploadFile.js')])
 
-require('./directive/views.js')(app);
+app.run(function ($rootScope) {
+  $rootScope.range = function (n) {
+    var l = []
+    for (var i = 0; i < n; i++) {
+      l.push(i)
+    }
+    return l
+  }
+  $rootScope.passport = passport
+  $rootScope.admin = adminUniq
+})
 
-var tId = setInterval(function(){
-  if(countNeedLoad > loaded){ return; }
-  clearInterval(tId);
+app.run(function ($location, $rootScope) {
+  $rootScope.currentPath = $location.path()
+  $rootScope.$on('$routeChangeSuccess', function (e, current, pre) {
+    $rootScope.currentPath = $location.path()
+  })
+})
 
-  app.run(function($rootScope){
-    $rootScope.menuItems = menuItems;
-    $rootScope.settingsItems = settingsItems;
-    $rootScope.pluginsWidgets = widgets;
+app.controller('MainController', function ($scope) { $scope.init = true })
+app.controller('HomeController', require('./controller/home'))
+app.controller('ReservationController', require('./controller/reservation'))
+app.controller('AdminController', require('./controller/admin'))
+
+require('./directive/views.js')(app)
+
+var tId = setInterval(function () {
+  if (countNeedLoad > loaded) { return }
+  clearInterval(tId)
+
+  app.run(function ($rootScope) {
+    $rootScope.menuItems = menuItems
+    $rootScope.settingsItems = settingsItems
+    $rootScope.pluginsWidgets = widgets
   })
 
-  angular.element(document).ready(function() {
-    setTimeout(function(){
-      while(angular.element(document.body).scope() == null){
-        angular.bootstrap(document.body, ['racapp']);
+  angular.element(document).ready(function () {
+    setTimeout(function () {
+      while (angular.element(document.body).scope() == null) {
+        angular.bootstrap(document.body, ['racapp'])
         console.warn('retry start angular module')
       }
-    },0);
-  });
-}, 5);
-
-
-
+    }, 0)
+  })
+}, 5)
 
 // glob('../locales/translations/**/*.js', function(files){
 //   console.log(files);
@@ -289,37 +277,39 @@ var tId = setInterval(function(){
 //     console.log(file);
 //   }
 // })
+
 },{"./controller/admin":1,"./controller/home":2,"./controller/reservation":3,"./directive/views.js":4,"./service/sharedData.js":6,"./service/uploadFile.js":7,"angular":21,"angular-animate":10,"angular-file-upload":11,"angular-gettext":13,"angular-route":15,"angular-sanitize":17,"angular-socket-io":18,"angular-ui-sortable":19,"angularjs-toaster":22,"path":56,"socket.io-client":58,"underscore":73}],6:[function(require,module,exports){
-module.exports = function(){
-  var data = {};
+module.exports = function () {
+  var data = {}
 
   return {
-    get: function(key){
-      return data[key];
+    get: function (key) {
+      return data[key]
     },
-    set: function(key, value){
-      data[key] = value;
+    set: function (key, value) {
+      data[key] = value
     }
   }
 }
+
 },{}],7:[function(require,module,exports){
 module.exports = function ($http) {
-    this.uploadFileToUrl = function (file, id, url) {
-        var fd = new FormData()
-        fd.append('file', file)
-        fd.append('id', id)
+  this.uploadFileToUrl = function (file, id, url) {
+    var fd = new FormData()
+    fd.append('file', file)
+    fd.append('id', id)
 
-        $http.post(url, fd, { 
-            transformRequest: angular.identity,
-            headers: { 'Content-Type': undefined }
-        }).success( function () {
+    $http.post(url, fd, {
+      transformRequest: angular.identity,
+      headers: { 'Content-Type': undefined }
+    }).success(function () {
 
-        }).error(function () {
+    }).error(function () {
 
-        })
-
-    }
+    })
+  }
 }
+
 },{}],8:[function(require,module,exports){
 module.exports = after
 
@@ -4512,7 +4502,7 @@ module.exports = 'ngAnimate';
 
 },{"./angular-animate":9}],11:[function(require,module,exports){
 /*
- angular-file-upload v2.4.0
+ angular-file-upload v2.5.0
  https://github.com/nervgh/angular-file-upload
 */
 
@@ -5728,8 +5718,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            try {
 	                this.uploader.uploadItem(this);
 	            } catch (e) {
-	                this.uploader._onCompleteItem(this, '', 0, []);
-	                this.uploader._onErrorItem(this, '', 0, []);
+	                var message = e.name + ':' + e.message;
+	                this.uploader._onCompleteItem(this, message, e.code, []);
+	                this.uploader._onErrorItem(this, message, e.code, []);
 	            }
 	        };
 	        /**
