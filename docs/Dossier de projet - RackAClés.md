@@ -170,14 +170,26 @@ L'historique est disponible en tout temps sur [le compte github du CPNV](https:/
 ## 3. Conception
 
 ### 3.1 Analyse de l'environnement
+* Serveur Nginx `Serveur Web`
+* Server MongoDB `Base de donnée NoSQL`
+* NodeJS `Interpréteur JavaScript côté serveur`
 
 ### 3.2 Détermination de l'arborescence du site et des rubriques
+* Liste des clés USB
+    * Réserver des clés USB
+* Mes réservations
+* Déconnexion
+* Connexion
+* Administration
+    * Liste des réservations
 
 ### 3.3 Définition de la charte graphique
+Reprise de la charte graphique du CPNV
 
 ### 3.4 Maquette graphique
 
 ### 3.5 Conception de la base de donnée
+![MLD-MCD](mld.png)
 
 ### 3.6 Conception du code
 
@@ -186,6 +198,7 @@ L'historique est disponible en tout temps sur [le compte github du CPNV](https:/
 * [Semantic UI](http://semantic-ui.com/)
 
 ### 3.8 Choix de la formule d'hébergement
+L'hébéergement du site sera sur un Raspberry PI
 
 ## 4. Réalisation
 
@@ -196,6 +209,7 @@ L'historique est disponible en tout temps sur [le compte github du CPNV](https:/
 ### 4.3 Erreurs restantes
 
 ### 4.4 Dossier d'archivage
+ Une archive est disponible en tout temps sur [le compte github du CPNV](https://github.com/CPNV-ES/RackAClefs)
 
 ## 5. Mise en service
 
@@ -210,6 +224,7 @@ L'historique est disponible en tout temps sur [le compte github du CPNV](https:/
 ### 7.1 Sources - Bibliographie
 
 ### 7.2 Journal de bord de chaque participant
+[Lien vers le journal de bord de Jonathan Debétaz](https://docs.google.com/spreadsheets/d/1g5dpVmCDTPYfdD2x1lC_IYb5q-xQmk9U8zUoN-gm72E/edit?usp=sharing)
 
 ### 7.3 Manuel d'installation
 
