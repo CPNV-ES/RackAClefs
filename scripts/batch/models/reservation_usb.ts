@@ -4,75 +4,49 @@ export let Schema = mongoose.Schema
 export let ObjectId = mongoose.Schema.Types.ObjectId
 export let Mixed = mongoose.Schema.Types.Mixed
 
-export interface IReservationModel extends mongoose.Document {
-    name : string
-    filename: string
-    reserved_at: Date
-    returned_at: Date
-    user: number
-    created_at: Date
-    updated_at: Date
+export interface IReservationUsbModel extends mongoose.Document {
+    reservation : string
+    usb: string
 }
 
 let schema = new Schema({
-    name: {
-        type: String,
+    reservation: {
+        type:  mongoose.Types.ObjectId,
+        ref: 'Reservation',
         required: true
     },
-    filename: {
-        type: String,
+    
+    usb: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Usb',
         required: true
     },
-    user: {
-        type: Number,
-        required: true
-    },
-    reserved_at: {
-        type: Date,
-        require: false
-    },
-    returned_at: {
-        type: Date,
-        required: false
-    }
 })
 
-export let ReservationSchema = mongoose.model<IReservationModel>('reservation', schema, 'reservations', true)
+export let ReservationUsbSchema = mongoose.model<IReservationUsbModel>('reservationusb', schema, 'reservationusbs', true)
 
-export class ReservationModel {
-    private _reservationModel: IReservationModel
+export class ReservationUsbModel {
+    private _reservationModel: IReservationUsbModel
 
-    constructor(reservationModel: IReservationModel) {
+    constructor(reservationModel: IReservationUsbModel) {
         this._reservationModel = reservationModel
     }
 
-    get name(): string {
-        return this._reservationModel.name
+    get reservation(): string {
+        return this._reservationModel.reservation
     }
 
-    get filename(): string {
-        return this._reservationModel.filename
+    get usb(): any {
+        return this._reservationModel.usb
     }
 
-    get reserved_at(): Date {
-        return this._reservationModel.reserved_at
-    }
 
-    get returned_at(): Date {
-        return this._reservationModel.returned_at
-    }
-
-    get user(): number {
-        return this._reservationModel.user
-    }
-
-    static createReservation(name: string, filename: string, user: number) : Promise.IThenable<IReservationModel> {
+    static createReservationUsb(reservation: string, usbkey: string) : Promise.IThenable<IReservationUsbModel> {
         let p = new Promise((resolve, reject) => {
-            let repo = new ReservationRepository()
-            let usb = <IReservationModel> {
-                name: name,
-                filename: filename,
-                user: user
+            let repo = new ReservationUsbRepository()
+            let usb = <IReservationUsbModel> {
+                reservation: reservation,
+                usb: usbkey
             }
 
             repo.create(usb, (err, res) => {
@@ -88,9 +62,9 @@ export class ReservationModel {
         return p
     }
 
-    static findReservation(_id: string): Promise.IThenable<IUsbModel> {
+    static findReservationUsb(_id: string): Promise.IThenable<IUsbModel> {
         let p = new Promise((resolve, reject) => {
-            let repo = new ReservationRepository()
+            let repo = new ReservationUsbRepository()
 
             repo.find({_id: mongoose.Types.ObjectId.createFromHexString(_id)}).sort({created_at: -1}).limit(1).exec((err, res) => {
                 if(err) {
@@ -112,7 +86,7 @@ export class ReservationModel {
 
 }
 
-Object.seal(ReservationModel)
+Object.seal(ReservationUsbModel)
 
 export interface IRead<T> {
     retrieve: (callback: (error: any, result: any) => void) => void
@@ -167,10 +141,10 @@ export class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IW
     }
 }
 
-export class ReservationRepository extends RepositoryBase<IReservationModel> {
+export class ReservationUsbRepository extends RepositoryBase<IReservationUsbModel> {
   constructor() {
-    super(ReservationSchema);
+    super(ReservationUsbSchema);
   }
 }
 
-Object.seal(ReservationRepository);
+Object.seal(ReservationUsbRepository);
