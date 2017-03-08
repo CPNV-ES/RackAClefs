@@ -168,11 +168,21 @@ Seul les enseignants et l'équipe pédagogique pourront avoir accès à l'applic
 L'historique est disponible en tout temps sur [le compte github du CPNV](https://github.com/CPNV-ES/RackAClefs/tree/master/docs)
 
 ## 3. Conception
-
 ### 3.1 Analyse de l'environnement
+#### 3.1.1 Environment de développement
+* Server MongoDB `Base de donnée NoSQL`
+* NodeJS `Interpréteur JavaScript côté serveur`
+* ArchLinux `Système d'expoitation`
+    * commande `blkid` listage des peripheriques de stockage disponnible sur le système d'exploitation (execution en root)
+* Windows Serveur 2012 `Serveur de gestion des compte AD`
+
+#### 3.1.2 Environment de production
 * Serveur Nginx `Serveur Web`
 * Server MongoDB `Base de donnée NoSQL`
 * NodeJS `Interpréteur JavaScript côté serveur`
+* Debian `Système d'expoitation`
+    * commande `blkid` listage des peripheriques de stockage disponnible sur le système d'exploitation (execution en root)
+* Windows Serveur `Serveur de gestion des compte AD`
 
 ### 3.2 Détermination de l'arborescence du site et des rubriques
 * Liste des clés USB
