@@ -107,7 +107,7 @@ réservation est marquée comme terminée.
 
 ### 1.4 Planification initiale
 
-![](Plannification.png)
+![Plannification](https://raw.githubusercontent.com/CPNV-ES/RackAClefs/master/docs/Plannification.png)
 
 ## 2. Analyse
 ### 2.1 Cahier des charges détaillé
@@ -136,8 +136,8 @@ réservation est marquée comme terminée.
 * server
 
 #### 2.1.4 Maquette préliminaire
-![Liste des clés](liste-des-clés.png)
-![Faire une réservation de clés](mes-reservations.png)
+![Liste des clés](https://raw.githubusercontent.com/CPNV-ES/RackAClefs/master/docs/liste-des-clés.png)
+![Faire une réservation de clés](https://raw.githubusercontent.com/CPNV-ES/RackAClefs/master/docs/mes-reservations.png)
 
 #### 2.1.5 Nom du site et nom de domaine
 Le site portera le nom `Rack à clés`, et le nom de domaine et encore inconnu et indécit.
@@ -163,7 +163,7 @@ Seul les enseignants et l'équipe pédagogique pourront avoir accès à l'applic
 
 
 ### 2.4 Planification
-![](Plannification.png)
+![Plannification](https://raw.githubusercontent.com/CPNV-ES/RackAClefs/master/docs/Plannification.png)
 ### 2.5 Historique
 L'historique est disponible en tout temps sur [le compte github du CPNV](https://github.com/CPNV-ES/RackAClefs/tree/master/docs)
 
@@ -199,7 +199,7 @@ Reprise de la charte graphique du CPNV
 ### 3.4 Maquette graphique
 
 ### 3.5 Conception de la base de donnée
-![MLD-MCD](mld.png)
+![MLD-MCD](https://raw.githubusercontent.com/CPNV-ES/RackAClefs/master/docs/mld.png)
 
 ### 3.6 Conception du code
 

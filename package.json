@@ -4,8 +4,9 @@
   "description": "Le but de ce projet est d'offrir une interface permettant de gérer un parc d'une quinzaine de clés USB à  plusieurs hubs USB multiports",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "test": "node docs/gen-doc.js",
+    "docs": "node docs/gen-doc.js"
   },
   "author": "",
   "license": "ISC",
@@ -58,6 +59,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-shell": "^0.4.2",
     "jsxgettext": "^0.8.0",
+    "markdown-pdf": "^7.0.0",
     "vinyl-source-stream": "^1.1.0"
   }
 }
