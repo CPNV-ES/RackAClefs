@@ -1,8 +1,8 @@
 language: node_js
 node_js:
   - 6
-before_script:
-  - "npm install --dev"
+install:
+  - npm install --dev
 
 after_script:
  - ./git-update.sh  
