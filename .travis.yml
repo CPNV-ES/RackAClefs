@@ -3,6 +3,7 @@ node_js:
   - 6
 install:
   - npm install --only=dev
-  
+
 after_script:
+ - sudo chmod +x git-update.sh
  - ./git-update.sh  
