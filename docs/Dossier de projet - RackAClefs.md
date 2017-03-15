@@ -1,5 +1,5 @@
 # Projet Rack à Clés
-> Created by Jonathan Debétaz yolo
+> Created by Jonathan Debétaz
 
 - [1. Analyse préliminaire](#1-analyse-préliminaire)
     - [1.1 Introduction](#11-introduction)
