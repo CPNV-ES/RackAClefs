@@ -1,3 +1,6 @@
+/**
+ * Load dependencies
+ */
 var io = require('socket.io-client')
 var fs = require('fs')
 var path = require('path')
@@ -12,16 +15,15 @@ require('angular-gettext')
 require('angular-ui-sortable')
 require('angular-file-upload')
 
+/**
+ * Initialize new AngularJS application
+ */
 var app = angular.module('racapp', ['ngRoute', 'btford.socket-io', 'ngSanitize', 'toaster', 'ngAnimate', 'gettext', 'ui.sortable', 'angularFileUpload'])
 
-var countNeedLoad = 0
-var loaded = 0
-
-var menuItems = []
-var settingsItems = []
-
-var widgets = []
-
+/**
+ * Define AngularJS router
+ * templateUrl: is located in client folder
+ */
 app.config(function ($routeProvider) {
   app.routeProvider = $routeProvider
   $routeProvider.when('/home', {
@@ -49,6 +51,9 @@ app.config(function ($routeProvider) {
   })
 })
 
+/**
+ * AngularJS Directive 
+ */
 app.directive('ngEnter', function () {
   return function (scope, element, attrs) {
     element.bind('keydown keypress', function (event) {
@@ -63,19 +68,34 @@ app.directive('ngEnter', function () {
   }
 })
 
+/**
+ * AngularJS Factory for Socket.IO Client
+ */
 app.factory('socket', function (socketFactory, $rootScope, toaster) {
   var myIoSocket = io.connect()
   myIoSocket.on('globalSettings', function (globalSettings) {
     $rootScope.globalSettings = globalSettings
   })
+
+  /**
+   * Show error alert on server error
+   */
   myIoSocket.on('server-error', function (msg, error) {
     console.error(error, typeof (error), msg)
     toaster.pop('error', 'Error', msg)
   })
+
+  /**
+   * Show error alert on socket disconnection
+   */
   myIoSocket.on('disconnect', function () {
     toaster.pop('warning', 'Connexion lost', 'The server is no longer reachable')
     $rootScope.$apply()
   })
+
+  /**
+   * Show info alert on socket reconnection
+   */
   myIoSocket.on('reconnect', function () {
     toaster.pop('info', 'Reconnected', 'The server is reachable again')
     $rootScope.$apply()
@@ -83,6 +103,9 @@ app.factory('socket', function (socketFactory, $rootScope, toaster) {
   return socketFactory({ioSocket: myIoSocket})
 })
 
+/**
+ * Load AngularJS Services
+ */
 app.service('sharedData', require('./service/sharedData.js'))
 app.service('fileUpload', ['$http', require('./service/uploadFile.js')])
 
@@ -98,6 +121,9 @@ app.run(function ($rootScope) {
   $rootScope.admin = adminUniq
 })
 
+/**
+ * Function to get the current AngularJS route
+ */
 app.run(function ($location, $rootScope) {
   $rootScope.currentPath = $location.path()
   $rootScope.$on('$routeChangeSuccess', function (e, current, pre) {
@@ -105,22 +131,24 @@ app.run(function ($location, $rootScope) {
   })
 })
 
+/**
+ * Load AngularJS Controllers
+ */
 app.controller('MainController', function ($scope) { $scope.init = true })
 app.controller('HomeController', require('./controller/home'))
 app.controller('ReservationController', require('./controller/reservation'))
 app.controller('AdminController', require('./controller/admin'))
 
+/**
+ * Load AngularJS Views Directives for the layout
+ */
 require('./directive/views.js')(app)
 
+/**
+ * Bootloader for the AngularJS application
+ */
 var tId = setInterval(function () {
-  if (countNeedLoad > loaded) { return }
   clearInterval(tId)
-
-  app.run(function ($rootScope) {
-    $rootScope.menuItems = menuItems
-    $rootScope.settingsItems = settingsItems
-    $rootScope.pluginsWidgets = widgets
-  })
 
   angular.element(document).ready(function () {
     setTimeout(function () {
@@ -131,11 +159,3 @@ var tId = setInterval(function () {
     }, 0)
   })
 }, 5)
-
-// glob('../locales/translations/**/*.js', function(files){
-//   console.log(files);
-//   for(var i in files){
-//     var file = files[i];
-//     console.log(file);
-//   }
-// })

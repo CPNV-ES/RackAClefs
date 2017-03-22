@@ -1,6 +1,13 @@
+/**
+ * Export SharedData Service
+ */
 module.exports = function () {
+  // Contain all shared data
   var data = {}
 
+  /**
+   * Return getter and setter for shared data
+   */
   return {
     get: function (key) {
       return data[key]

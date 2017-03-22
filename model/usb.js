@@ -1,5 +1,11 @@
+/**
+ * Load dependencies
+ */
 var mongoose = require('mongoose')
 
+/**
+ * Create Mongoose Schema for usb keys
+ */
 var usbSchema = mongoose.Schema({
   name: String,
   status: Boolean,
@@ -8,4 +14,7 @@ var usbSchema = mongoose.Schema({
   initialized: Boolean
 })
 
+/**
+ * Export Mongoose Model for MongoDB
+ */
 module.exports = mongoose.model('Usb', usbSchema)

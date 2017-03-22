@@ -1,8 +1,6 @@
 var Usb = require('../model/usb')
 var Reservation = require('../model/reservation')
 
-// var usbDriver = require('usb-driver');
-
 module.exports = function (io, domain) {
   io.on('connection', function (socket) {
     global.users[socket.id] = socket
@@ -12,20 +10,24 @@ module.exports = function (io, domain) {
       delete global.users[socket.id]
     })
 
-        /**
-         * USB ORM
-         */
+    /**
+     * USB ORM
+     */
+
+    // Return list of all usb keys
     socket.on('usb/list', (callback) => {
       Usb.find({ }, callback)
     })
 
-        /**
-         * ADMIN USB ORM
-         */
+    /**
+     * ADMIN USB ORM
+     */
+    // Return list of all usb keys
     socket.on(adminUniq + '/admin/usb/list', (callback) => {
       Usb.find({ }, callback)
     })
 
+    // Add manualy usb key to the MongoDB storage
     socket.on(adminUniq + '/admin/usb/save', (usb, callback) => {
       if (usb._id != null) {
         Usb.findById(usb._id, (err, u) => {
@@ -39,6 +41,7 @@ module.exports = function (io, domain) {
       }
     })
 
+    // Delete usb key from the MongoDB storage
     socket.on(adminUniq + '/admin/usb/delete', (usb, callback) => {
       Usb.findById(usb._id, (err, u) => {
         if (err) {
@@ -50,14 +53,19 @@ module.exports = function (io, domain) {
       })
     })
 
-        /**
-         * Reservation ORM
-         */
+    /**
+     * Reservation ORM
+     */
+
+    // Return list of all reservation
     socket.on('reservation/list', (callback) => {
       Reservation.find({}, callback)
     })
 
+    // Create and edit a reservation
     socket.on('reservation/save', (data, callback) => {
+
+      // Edit reservation
       if (data.id != null) {
         Reservation.findById(data.id, function (err, reservation) {
           reservation.name = data.name
@@ -87,6 +95,8 @@ module.exports = function (io, domain) {
           }
         })
       } else {
+
+        // Create reservation
         var reservation = new Reservation()
         reservation.name = data.name
         reservation.user = data.user
@@ -115,14 +125,10 @@ module.exports = function (io, domain) {
       }
     })
 
-        /**
-         * USB Event
-         */
-        /* usbDriver.on('attach', function(device) { console.log('add', device) });
-        usbDriver.on('detach', function(device) { console.log('remove', device) }); */
-        /**
-         * Catching domain errors
-         */
+
+    /**
+     * Catching domain errors
+     */
     domain.on('error', (err) => {
       socket.emit('server-error', err.message, err)
     })
